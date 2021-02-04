@@ -2,3 +2,4 @@ node_modules/
 .idea/workspace.xml
 .idea/usage.statistics.xml
 .idea/tasks.xml
+package-lock.json
