@@ -466,6 +466,9 @@ type UsersPermissionsUser {
   confirmed: Boolean
   blocked: Boolean
   role: UsersPermissionsRole
+  twitchToken: String
+  twitchTokenDate: DateTime
+  twitchTokenValidity: Int
 }
 
 type UsersPermissionsUserConnection {
@@ -477,6 +480,26 @@ type UsersPermissionsUserConnection {
 type UsersPermissionsUserAggregator {
   count: Int
   totalCount: Int
+  sum: UsersPermissionsUserAggregatorSum
+  avg: UsersPermissionsUserAggregatorAvg
+  min: UsersPermissionsUserAggregatorMin
+  max: UsersPermissionsUserAggregatorMax
+}
+
+type UsersPermissionsUserAggregatorSum {
+  twitchTokenValidity: Float
+}
+
+type UsersPermissionsUserAggregatorAvg {
+  twitchTokenValidity: Float
+}
+
+type UsersPermissionsUserAggregatorMin {
+  twitchTokenValidity: Float
+}
+
+type UsersPermissionsUserAggregatorMax {
+  twitchTokenValidity: Float
 }
 
 type UsersPermissionsUserGroupBy {
@@ -489,6 +512,9 @@ type UsersPermissionsUserGroupBy {
   confirmed: [UsersPermissionsUserConnectionConfirmed]
   blocked: [UsersPermissionsUserConnectionBlocked]
   role: [UsersPermissionsUserConnectionRole]
+  twitchToken: [UsersPermissionsUserConnectionTwitchToken]
+  twitchTokenDate: [UsersPermissionsUserConnectionTwitchTokenDate]
+  twitchTokenValidity: [UsersPermissionsUserConnectionTwitchTokenValidity]
 }
 
 type UsersPermissionsUserConnectionId {
@@ -536,6 +562,21 @@ type UsersPermissionsUserConnectionRole {
   connection: UsersPermissionsUserConnection
 }
 
+type UsersPermissionsUserConnectionTwitchToken {
+  key: String
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionTwitchTokenDate {
+  key: DateTime
+  connection: UsersPermissionsUserConnection
+}
+
+type UsersPermissionsUserConnectionTwitchTokenValidity {
+  key: Int
+  connection: UsersPermissionsUserConnection
+}
+
 input UserInput {
   username: String!
   email: String!
@@ -546,6 +587,9 @@ input UserInput {
   confirmed: Boolean
   blocked: Boolean
   role: ID
+  twitchToken: String
+  twitchTokenDate: DateTime
+  twitchTokenValidity: Int
   created_by: ID
   updated_by: ID
 }
@@ -560,6 +604,9 @@ input editUserInput {
   confirmed: Boolean
   blocked: Boolean
   role: ID
+  twitchToken: String
+  twitchTokenDate: DateTime
+  twitchTokenValidity: Int
   created_by: ID
   updated_by: ID
 }
@@ -589,7 +636,7 @@ type deleteUserPayload {
   user: UsersPermissionsUser
 }
 
-union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Channels | ChannelsConnection | ChannelsAggregator | ChannelsGroupBy | ChannelsConnectionId | ChannelsConnectionCreated_at | ChannelsConnectionUpdated_at | ChannelsConnectionChannelId | ChannelsConnectionChannelName | ChannelsConnectionPublished_at | createChannelPayload | updateChannelPayload | deleteChannelPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | createUserPayload | updateUserPayload | deleteUserPayload
+union Morph = UsersPermissionsMe | UsersPermissionsMeRole | UsersPermissionsLoginPayload | UserPermissionsPasswordPayload | Channels | ChannelsConnection | ChannelsAggregator | ChannelsGroupBy | ChannelsConnectionId | ChannelsConnectionCreated_at | ChannelsConnectionUpdated_at | ChannelsConnectionChannelId | ChannelsConnectionChannelName | ChannelsConnectionPublished_at | createChannelPayload | updateChannelPayload | deleteChannelPayload | UploadFile | UploadFileConnection | UploadFileAggregator | UploadFileAggregatorSum | UploadFileAggregatorAvg | UploadFileAggregatorMin | UploadFileAggregatorMax | UploadFileGroupBy | UploadFileConnectionId | UploadFileConnectionCreated_at | UploadFileConnectionUpdated_at | UploadFileConnectionName | UploadFileConnectionAlternativeText | UploadFileConnectionCaption | UploadFileConnectionWidth | UploadFileConnectionHeight | UploadFileConnectionFormats | UploadFileConnectionHash | UploadFileConnectionExt | UploadFileConnectionMime | UploadFileConnectionSize | UploadFileConnectionUrl | UploadFileConnectionPreviewUrl | UploadFileConnectionProvider | UploadFileConnectionProvider_metadata | deleteFilePayload | UsersPermissionsPermission | UsersPermissionsRole | UsersPermissionsRoleConnection | UsersPermissionsRoleAggregator | UsersPermissionsRoleGroupBy | UsersPermissionsRoleConnectionId | UsersPermissionsRoleConnectionName | UsersPermissionsRoleConnectionDescription | UsersPermissionsRoleConnectionType | createRolePayload | updateRolePayload | deleteRolePayload | UsersPermissionsUser | UsersPermissionsUserConnection | UsersPermissionsUserAggregator | UsersPermissionsUserAggregatorSum | UsersPermissionsUserAggregatorAvg | UsersPermissionsUserAggregatorMin | UsersPermissionsUserAggregatorMax | UsersPermissionsUserGroupBy | UsersPermissionsUserConnectionId | UsersPermissionsUserConnectionCreated_at | UsersPermissionsUserConnectionUpdated_at | UsersPermissionsUserConnectionUsername | UsersPermissionsUserConnectionEmail | UsersPermissionsUserConnectionProvider | UsersPermissionsUserConnectionConfirmed | UsersPermissionsUserConnectionBlocked | UsersPermissionsUserConnectionRole | UsersPermissionsUserConnectionTwitchToken | UsersPermissionsUserConnectionTwitchTokenDate | UsersPermissionsUserConnectionTwitchTokenValidity | createUserPayload | updateUserPayload | deleteUserPayload
 
 input InputID {
   id: ID!
@@ -651,7 +698,7 @@ type Mutation {
 
   """Delete an existing user"""
   deleteUser(input: deleteUserInput): deleteUserPayload
-  upload(refId: ID, ref: String, field: String, source: String, file: Upload!): UploadFile!
+  upload(refId: ID, ref: String, field: String, source: String, info: FileInfoInput, file: Upload!): UploadFile!
   multipleUpload(refId: ID, ref: String, field: String, source: String, files: [Upload]!): [UploadFile]!
   updateFileInfo(id: ID!, info: FileInfoInput!): UploadFile!
   login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
